@@ -3,7 +3,7 @@ leetcode刷题日志
 
 ## Array
 
-#### array-0-star
+### array-1-star
 
 [\*1. Two Sum](https://leetcode.com/problems/two-sum/) **Easy** 20190129
 - 给出数组和target，从数组中找出2个数之和等于target，保证只有一组解
@@ -25,8 +25,6 @@ for (size_t i = 0; i < nums.size(); ++i) {
 return {};
 ```
 
-#### array-1-star
-
 [\*283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) **Easy** 20190131
 - 将数组中的0全部挪到最后面，其他元素相对位置不变，要求 in-place 处理
 - **Answer** 双指针处理，i 扫描数组，j 为当前非0元素位置，最后补0
@@ -39,18 +37,17 @@ return {};
 
 ## String
 
-#### string-水题
+### string-水题
 
 [709. To Lower Case](https://leetcode.com/problems/to-lower-case/) **Easy** 20190129 - 水题 将输入转为小写
 
 [771. Jewels and Stones](https://leetcode.com/problems/non-decreasing-array/) **Easy** 20190129 - 水题 leetcode 通过率最高的题目。两个字符串 J 和 S，J 字母保证distinct，问 S 中包含 J 中字母的个数
-- **Answer** 对 J 和 S 排序后扫一遍，复杂度 O(NlogN)
 
 [804. Unique Morse Code Words](https://leetcode.com/problems/unique-morse-code-words/) **Easy** 20190208 - 水题 给出摩斯码表，输入一个字符串列表，求对应的不同摩斯码的个数
 
 [929. Unique Email Addresses](https://leetcode.com/problems/unique-email-addresses/) **Easy** 20190129 - 水题 给定一个 email 列表和一些特殊符号规则，问共有多少个不同email
 
-#### string-0-star
+### string-0-star
 
 [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) **Medium** 20190130
 - 输入字符串，输出最长子串长度，子串由不同字符组成
@@ -68,14 +65,13 @@ return {};
 
 ## Tree
 
-#### tree-水题
+### tree-水题
 
 [100. Same Tree](https://leetcode.com/problems/same-tree/) **Easy** 20190131 - 水题 判断两棵二叉树是否一样
 
 [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) **Easy** 20190130 - 水题 求二叉树的最大深度
 
 [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/) **Easy** 20190203 - 水题 按层遍历二叉树，每层节点一个 vector，自下而上遍历
-- **Answer** 按顺序遍历完以后 reverse 结果
 
 [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/) **Easy** 20190131 - 水题 翻转二叉树
 
@@ -95,7 +91,7 @@ return {};
 
 [965. Univalued Binary Tree](https://leetcode.com/problems/univalued-binary-tree/) **Easy** 20190131 - 水题 判断二叉树所有节点是否同一个值
 
-#### tree-0-star
+### tree-0-star
 
 [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/) **Easy** 20190203
 - 判断二叉树是否height-balanced，定义为任意节点其两个子树的高度之差<=1
@@ -190,7 +186,7 @@ return v;
 - 给定两个二叉树root1 root2，判断root1是否能通过若干次节点的子树翻转变成 root2
 - **Answer** 递归判断两种情况：左右子树没有翻转是否相等；左右子树翻转后是否相等
 
-#### tree-1-star
+### tree-1-star
 
 [\*94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) **Medium** 20190206
 - 二叉树中序遍历，要求非递归
@@ -294,7 +290,7 @@ TreeNode* subtreeWithAllDeepest(TreeNode* root) {
 - **Answer** 从叶子开始递归，每个节点需要移动的金币数为
 [当前节点的金币数]与1的绝对值，当前节点金币数若为负表示需要流入金币，每个节点返回`root->val + x + y - 1`即为流入到其父节点的金币数
 
-#### tree-2-star
+### tree-2-star
 
 [\*\*236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) **Medium** 20190218
 - 最近公共祖先 LCA
@@ -315,7 +311,7 @@ return NULL;
 
 ## Linked List
 
-#### linkedlist-水题
+### linkedlist-水题
 
 [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/) **Medium** 20190129 - 水题 两个用链表表示的数相加，返回链表
 
@@ -323,7 +319,7 @@ return NULL;
 
 ## misc
 
-#### misc-水题
+### misc-水题
 
 [136. Single Number](https://leetcode.com/problems/single-number/) **Easy** 20190131 - 水题 给定一个数组，只有1个元素出现了1次，其他元素恰好出现了2次，求那个出现1次的元素
 - **Answer** ans ^= nums[i];
@@ -334,7 +330,7 @@ A 先wc 判断文件是否有10行
 
 [461. Hamming Distance](https://leetcode.com/problems/hamming-distance/) **Easy** 20190130 - 水题 求汉明距离
 
-#### misc-0-star
+### misc-0-star
 
 [46. Permutations](https://leetcode.com/problems/permutations/) **Medium** 20190209
 - 输入没有重复元素的数组，输出数组的全排列
@@ -351,7 +347,7 @@ for (int i = 1; i <= num; ++i)
 return ret;
 ```
 
-#### misc-1-star
+### misc-1-star
 
 [\*406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/) **Medium** 20190131
 - 由(h, k)组成的数组，h 表示高度为 h 的人，k 表示在他前面的高度>=h的人数，要求重新排列数组
