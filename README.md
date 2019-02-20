@@ -114,6 +114,10 @@ return hasPathSum(root->left, sum-root->val)||hasPathSum(root->right, sum-root->
 - 先序遍历二叉树，要求非递归
 - **Answer** 非递归遍历二叉树，先序最简单，按照递归顺序入栈
 
+[257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/) **Easy** 20190221
+- 输出所有 root-to-leaf 路径，用字符串表示
+- **Answer** DFS 所有路径，边搜索边构造字符串
+
 [429. N-ary Tree Level Order Traversal](https://leetcode.com/problems/n-ary-tree-level-order-traversal/) **Easy** 20190203
 - N叉树按层遍历节点，每层节点用一个 vector 存放，返回结果为`vector<vector<int>>`
 - **Answer** 关键问题是如何区分入队的节点分属哪一层，解决办法是记录每层节点数(等于每层迭代前的队列长度)，for 循环 pop 出来的节点即为同一层
@@ -203,6 +207,23 @@ while (curr != NULL || !s.empty()) {
 return ans;
 ```
 
+[\*101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) **Easy** 20190221
+- 判断二叉树是否镜像对称(中心对称)
+- **Answer** 两个指针递归判断左右子树是否翻转对称
+
+[\*235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) **Easy** 20190221
+- BST 的 LCA
+- **Answer** 用二叉树的 LCA 可求
+- **better solution** 若 p q 均小于等于 root 则递归查找 root->left，同理 p q 均大于 root 递归查找 root->right，否则 root 即为所求答案
+```C++
+if (root == NULL || root == p || root == q) return root;
+bool L = root->val >= p->val && root->val >= q->val;
+bool R = root->val < p->val && root->val < q->val;
+if (L) return lowestCommonAncestor(root->left, p, q);
+if (R) return lowestCommonAncestor(root->right, p, q);
+return root;
+```
+
 [\*590. N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal) **Easy** 20190131
 - N叉树的后序遍历，要求非递归
 - **Answer** 根据访问顺序倒序放入栈，`unordered_set<Node*> visited` 记录已展开children的节点
@@ -286,7 +307,7 @@ TreeNode* subtreeWithAllDeepest(TreeNode* root) {
 ### tree-2-star
 
 [\*\*236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) **Medium** 20190218
-- 最近公共祖先 LCA
+- 二叉树最近公共祖先 LCA
 - **Answer** 递归每次状态(root, p, q)表示 root 为根节点的子树下，包含 p 或 q 的最近祖先，若左右子树均非空则返回 root；否则返回非空的子树结果。
 - **solution**
 ```C++
@@ -314,7 +335,6 @@ return NULL;
 ### misc-水题
 
 [136. Single Number](https://leetcode.com/problems/single-number/) **Easy** 20190131 - 水题 给定一个数组，只有1个元素出现了1次，其他元素恰好出现了2次，求那个出现1次的元素
-- **Answer** ans ^= nums[i];
 
 [195. Tenth Line](https://leetcode.com/problems/tenth-line/) **Easy** 20190129 - 水题 
 [Shell]输出文件的第10行
