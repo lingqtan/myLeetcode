@@ -8,7 +8,7 @@ leetcode刷题日志
 [\*1. Two Sum](https://leetcode.com/problems/two-sum/) **Easy** 20190129
 - 给出数组和target，从数组中找出2个数之和等于target，保证只有一组解
 - **Answer** 用一个map记录每个数字的位置，扫一遍数组，对每个数字a若target-a的count不为0即为解。解决重复问题：若遇到重复，则把key加上一个固定的大数，保证在map中重复的数字有不同pos。不用multimap原因：麻烦。
-- better solution unordered_map
+- **better solution** unordered_map
 ```C++
 unordered_map<int, size_t> m;
 m.reserve(nums.size());
@@ -103,7 +103,7 @@ return {};
 [112. Path Sum](https://leetcode.com/problems/path-sum/) **Easy** 20190204
 - 二叉树从根节点到叶子的所有 path 中，是否存在 path 经过节点之和等于给定 target
 - **Answer** 遍历所有 path，若满足条件则尽快返回
-- cleaner solution
+- **cleaner solution**
 ```C++
 if(!root) return false;
 if(root&&root->val==sum&&!root->left&&!root->right) return true;
@@ -121,7 +121,7 @@ return hasPathSum(root->left, sum-root->val)||hasPathSum(root->right, sum-root->
 [508. Most Frequent Subtree Sum](https://leetcode.com/problems/most-frequent-subtree-sum/) **Medium** 20190208
 - 二叉树的子树之和定义为子树上所有节点之和(包括根节点)，求所有子树和中出现频率最高的值，若频率相等输出所有值
 - **Answer** 递归求出所有子树和，再用一个 map 求出频率高的子树和
-- tricky solution 一次循环同时完成求最高频率和对应子树和
+- **tricky solution** 一次循环同时完成求最高频率和对应子树和
 ```C++
 int max_count = 0;
 for (auto &p : m) {
@@ -188,7 +188,7 @@ return v;
 [\*94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) **Medium** 20190206
 - 二叉树中序遍历，要求非递归
 - **Answer** 根节点若有左节点，则先压入根节点，当前节点变为左节点；否则输出根节点，当前节点变为右节点。关键点：维护一个 `from_stack`布尔变量判断当前节点是否从栈弹出，若是则不能重复进行左子树处理
-- better solution 需要压入栈的都是有左子树的节点
+- **better solution** 需要压入栈的都是有左子树的节点
 ```C++
 TreeNode* curr = root;
 while (curr != NULL || !s.empty()) {
@@ -206,7 +206,7 @@ return ans;
 [\*590. N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal) **Easy** 20190131
 - N叉树的后序遍历，要求非递归
 - **Answer** 根据访问顺序倒序放入栈，`unordered_set<Node*> visited` 记录已展开children的节点
-- tricky solution
+- **tricky solution**
 ```C++
 s.push(root);
 while(!s.empty()){
@@ -222,7 +222,7 @@ reverse(result.begin(),result.end());
 [\*687. Longest Univalue Path](https://leetcode.com/problems/longest-univalue-path/) **Easy** 20190201
 - 二叉树任意两节点之间构成一个 path，求最长 path 满足经过的所有节点值相等
 - **Answer** `map<TreeNode*, int> lLongestLen, rLongestLen`分别记录每个节点的左/右子树最大长度(包含此节点本身)，递归左右节点后，分别求出根节点到左右子树最大长度，若根==左==右则更新最大长度。
-- cleaner solution
+- **cleaner solution**
 ```C++
 int arrowLength(TreeNode* node) {
     if (node == NULL) return 0;
@@ -243,7 +243,7 @@ int arrowLength(TreeNode* node) {
 [\*865. Smallest Subtree with all the Deepest Nodes](https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/) **Medium** 20190207
 - 求二叉树的最小子树，使之包含所有最大深度的叶子
 - **Answer** 暴力 先求出数的深度 n，再求出所有符合要求的路径存放到数组 paths，扫描 paths 求出最近祖先
-- better solution 先求出所有最大深度的叶子，递归求解答案：若 node 为最大深度叶子返回 node；递归求解左右子树答案 L R，若L R 均不为空则返回 node；否则返回非空一边子树的答案
+- **better solution** 先求出所有最大深度的叶子，递归求解答案：若 node 为最大深度叶子返回 node；递归求解左右子树答案 L R，若L R 均不为空则返回 node；否则返回非空一边子树的答案
 ```C++
 map<TreeNode*, int> depth;
 int max_depth;
@@ -288,8 +288,7 @@ TreeNode* subtreeWithAllDeepest(TreeNode* root) {
 [\*\*236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) **Medium** 20190218
 - 最近公共祖先 LCA
 - **Answer** 递归每次状态(root, p, q)表示 root 为根节点的子树下，包含 p 或 q 的最近祖先，若左右子树均非空则返回 root；否则返回非空的子树结果。
-
-`solution`
+- **solution**
 ```C++
 if (root == NULL || root == p || root == q) return root;
 TreeNode* left = lowestCommonAncestor(root->left, p, q);
@@ -332,7 +331,7 @@ A 先wc 判断文件是否有10行
 [338. Counting Bits](https://leetcode.com/problems/counting-bits/) **Medium** 20190130
 - 输入 num，输出0<=i<=num范围每个 i 的二进制中1的个数，要求时间复杂度和空间复杂度均为 O(n)
 - **Answer** 打表法，先求出0 - 255(1byte)每个数中1的个数，再遍历 i，每个 i 最多查表4次(4byte)相加即为结果
-- tricky solution
+- **tricky solution**
 ```C++
 for (int i = 1; i <= num; ++i)
     ret[i] = ret[i&(i-1)] + 1; // i&(i-1) 去掉 i 的最后一个1
