@@ -211,6 +211,10 @@ return ans;
 - 判断二叉树是否镜像对称(中心对称)
 - **Answer** 两个指针递归判断左右子树是否翻转对称
 
+[\*108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) **Easy** 20190222
+- 输入一个排序后的数组，输出以该数组元素为节点的 BST，要求任意节点的两子树高度之差不超过1
+- **Answer** 构造二叉平衡树表面看需要上红黑树，其实不必。数组是排序过的，所以以中间节点为根节点，两边的子树就是平衡的了。
+
 [\*235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) **Easy** 20190221
 - BST 的 LCA
 - **Answer** 用二叉树的 LCA 可求
@@ -223,6 +227,10 @@ if (L) return lowestCommonAncestor(root->left, p, q);
 if (R) return lowestCommonAncestor(root->right, p, q);
 return root;
 ```
+
+[\*543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) **Easy** 20190222
+- 求二叉树的直径，定义为两个节点间最远的路径长度
+- **Answer** 递归计算经过节点 node 往下走的最长距离（"圆心"node 两边的"半径"L和R之和）max(L,R)+1，同时更新距离最大值 ans = max(L+R, ans)
 
 [\*590. N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal) **Easy** 20190131
 - N叉树的后序遍历，要求非递归
@@ -239,6 +247,10 @@ while(!s.empty()){
 }
 reverse(result.begin(),result.end());
 ```
+
+[\*669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/) **Easy** 20190222
+- 输入 BST 和范围[L,R]，对 BST 剪枝使得所有节点值都在[L,R]范围内
+- **Answer** 这题不需要用到 BST 删除节点算法，若 root > R，说明 root 和右子树都要剪掉，返回递归剪枝后的左子树；同理 root < L 返回递归剪枝后的右子树；若 root 属于[L,R]，则递归剪枝左右子树，返回 root。注意：不能真 delete 掉节点，会导致RE。。
 
 [\*687. Longest Univalue Path](https://leetcode.com/problems/longest-univalue-path/) **Easy** 20190201
 - 二叉树任意两节点之间构成一个 path，求最长 path 满足经过的所有节点值相等
@@ -299,9 +311,35 @@ TreeNode* subtreeWithAllDeepest(TreeNode* root) {
 - 输入二叉树的先序遍历和后序遍历，构造出其中一个可能的二叉树
 - **Answer** 先序遍历的第一个元素和后序遍历的最后一个元素必须相等，为根节点，然后递归划分左右子树时，只需满足根节点规则（实践证明不需要再次判断左(右)子树的先序/后序元素集合是否一致）
 
+[\*897. Increasing Order Search Tree](https://leetcode.com/problems/increasing-order-search-tree/) **Easy** 20190222
+- 将二叉树拉成一个长链条，顺序为中序遍历，每个节点无左儿子，右儿子为下一个节点
+- **Answer** 中序遍历将节点指针存储在一个 vector，然后逐个修改左右儿子。
+- **better solution** 中序遍历的同时原地修改左右儿子，需要注意：设立一个哨兵指针指向根节点。
+```C++
+TreeNode* curr;
+TreeNode* increasingBST(TreeNode* root) {
+    TreeNode* ans = new TreeNode(0);
+    curr = ans;
+    inorder(root);
+    return ans->right;
+}
+void inorder(TreeNode* root) {
+    if (node == NULL) return;
+    inorder(node->left);
+    node->left = NULL;
+    curr->right = node;
+    curr = node;
+    inorder(node->right);
+}
+```
+
 [\*979. Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree/) **Medium** 20190206
 - 二叉树每个节点上有一些金币，树上一共有 N 个金币(二叉树节点数)，相邻节点之间可任意方向移动金币，问最小移动金币数，使得每个节点上恰好有1个金币
 - **Answer** 从叶子开始递归，每个节点需要移动的金币数为
+
+[\*993. Cousins in Binary Tree](https://leetcode.com/problems/cousins-in-binary-tree/) **Easy**
+- 输入二叉树和两个值 x y，问值 x y 对应的两个节点是否为 cousins，定义为两节点在同一层且父节点不同。
+- **Answer** 逐层扫描，若同时找到 x 和 y，且他们父亲不同即返回 true，注意的是找父亲不需要额外指针 prev，只需在按层扫描时判断其左右儿子是否恰为 x 和 y。
 [当前节点的金币数]与1的绝对值，当前节点金币数若为负表示需要流入金币，每个节点返回`root->val + x + y - 1`即为流入到其父节点的金币数
 
 ### tree-2-star
@@ -319,6 +357,31 @@ else if (left) return left;
 else if (right) return right;
 return NULL;
 ```
+[\*\*437. Path Sum III](https://leetcode.com/problems/path-sum-iii/) **Easy** 20190221
+- 给定一个值 sum，求二叉树上和为 sum 的 path 个数，path 方向必须为从上到下，且不是必须经过根和叶子
+- **Answer** 一般解法：遍历 path 的开始节点 s，从 s 往下遍历 path，若遇到和为 sum 则++，复杂度 O(n^2)。
+- **cleaner solution**
+```C++
+if(root == null) return 0;
+return findPath(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+
+int findPath(TreeNode* root, int sum) {
+    if(root == null) return 0;
+    int res = 0;
+    if(sum == root.val) res++;
+    res += findPath(root.left, sum - root.val);
+    res += findPath(root.right, sum - root.val);
+    return res;
+}
+```
+- **better solution** [哈希前缀和方法](https://leetcode.com/problems/path-sum-iii/discuss/91884/Simple-AC-Java-Solution-DFS) **TODO**
+
+[\*\*501. Find Mode in Binary Search Tree](https://leetcode.com/problems/find-mode-in-binary-search-tree/) **Easy** 20190221
+- 输入 BST，对于每个 node，左子树的所有值均 <= node.val，右子树的所有值均 >= node.val，求出现频率最高的值，若有多个输出所有值。
+- **Answer** 一般解法：若当前节点 node 没被访问过，则设为访问过，map 节点值计数++，递归与之相等值的子树，时间复杂度 O(n)，空间复杂度 O(n)。
+- **better solution** [O(1) 空间复杂度的算法](https://leetcode.com/problems/find-mode-in-binary-search-tree/discuss/98101/Proper-O1-space) **TODO**
+
+
 
 ---
 

@@ -15,12 +15,7 @@ class Solution {
     void solve(TreeNode* root) {
         if (root == NULL) return;
         visited.insert(root);
-        if (m.count(root->val) == 0) {
-            m[root->val] = 1;
-        }
-        else {
-            m[root->val]++;
-        }
+        m[root->val]++;
         if (root->left && root->left->val == root->val) solve(root->left);
         if (root->right && root->right->val == root->val) solve(root->right);
     }
