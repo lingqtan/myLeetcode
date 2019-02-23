@@ -56,6 +56,10 @@ return {};
 - 求字符串的最长回文子串
 - **Answer** 暴力求解，遍历中心字符，分别求奇数和偶数长度的最长回文子串，复杂度 O(n^2)
 
+[6. ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/) **Medium** 20190223
+- 输入字符串和整数 n，输出 zigzag 变换后的字符串（详见题述）
+- **Answer** 直接模拟，注意 n 的边界讨论(<=1, 2, >=s.size())
+
 [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) **Medium** 20190208
 - 输入 n，输出 n 对括号所有合法的组合方式，即每个左括号都有右括号对应（可嵌套）
 - **Answer** 这题做得很开心，递归求每个位置是哪个括号，字符串的任意前缀要满足num(左括号) >= num(右括号)
@@ -187,6 +191,10 @@ return v;
 - 给定两个二叉树root1 root2，判断root1是否能通过若干次节点的子树翻转变成 root2
 - **Answer** 递归判断两种情况：左右子树没有翻转是否相等；左右子树翻转后是否相等
 
+[988. Smallest String Starting From Leaf](https://leetcode.com/problems/smallest-string-starting-from-leaf/) **Medium** 20190222
+- 二叉树每个 node 的值为一个小写英文字母，从叶子到根的路径组成一个单词，输出字典序最小的单词
+- **Answer** 对每个节点，递归求解左右节点的最小单词前缀，加上节点值返回，注意分开只有一个儿子的情况。
+
 ### tree-1-star
 
 [\*94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) **Medium** 20190206
@@ -206,6 +214,11 @@ while (curr != NULL || !s.empty()) {
 }
 return ans;
 ```
+
+[\*98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) **Medium** 20190222
+- 验证 BST 是否合法，定义为任意节点，其左子树所有节点比它小，右子树所有节点比它大。
+- **Answer** 遍历每个 node，对于 node，递归比较左子树所有节点比 node 小，右子树所有节点比 node 大，若有任意一次比较结果为 false 则尽快退出，时间复杂度 O(n^2)。
+- 
 
 [\*101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/) **Easy** 20190221
 - 判断二叉树是否镜像对称(中心对称)
@@ -251,6 +264,10 @@ reverse(result.begin(),result.end());
 [\*669. Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/) **Easy** 20190222
 - 输入 BST 和范围[L,R]，对 BST 剪枝使得所有节点值都在[L,R]范围内
 - **Answer** 这题不需要用到 BST 删除节点算法，若 root > R，说明 root 和右子树都要剪掉，返回递归剪枝后的左子树；同理 root < L 返回递归剪枝后的右子树；若 root 属于[L,R]，则递归剪枝左右子树，返回 root。注意：不能真 delete 掉节点，会导致RE。。
+
+[\*671. Second Minimum Node In a Binary Tree](https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/) **Easy** 20190222
+- 输入二叉树，每个节点的儿子数为0或2。若儿子数为2，节点值为两儿子值的 min。求该二叉树中第二小的值，若不存在返回-1。
+- **Answer** 设 root 值为 x，从 root 开始递归遍历所有值为 x 的节点，若遇到相邻的值不为 x 的节点 y，更新答案 ans = min(y, ans)，y 节点不用继续递归下去。
 
 [\*687. Longest Univalue Path](https://leetcode.com/problems/longest-univalue-path/) **Easy** 20190201
 - 二叉树任意两节点之间构成一个 path，求最长 path 满足经过的所有节点值相等
@@ -380,8 +397,6 @@ int findPath(TreeNode* root, int sum) {
 - 输入 BST，对于每个 node，左子树的所有值均 <= node.val，右子树的所有值均 >= node.val，求出现频率最高的值，若有多个输出所有值。
 - **Answer** 一般解法：若当前节点 node 没被访问过，则设为访问过，map 节点值计数++，递归与之相等值的子树，时间复杂度 O(n)，空间复杂度 O(n)。
 - **better solution** [O(1) 空间复杂度的算法](https://leetcode.com/problems/find-mode-in-binary-search-tree/discuss/98101/Proper-O1-space) **TODO**
-
-
 
 ---
 
